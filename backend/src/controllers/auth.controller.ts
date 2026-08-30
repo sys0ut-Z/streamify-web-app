@@ -8,6 +8,11 @@ import { createAccessToken } from "../service/token.service";
 import { upsertStreamUser } from "../service/stream.service";
 import { LoginRequest, OnboardRequest, SignupRequest } from "../types/auth.types";
 
+/**
+ * @description Creates a user account, provisions its Stream profile, and starts an authenticated session.
+ * @route POST /api/auth/signup
+ * @access Public
+ */
 export const signup = async (
   req: Request,
   res: Response,
@@ -79,6 +84,11 @@ export const signup = async (
   }
 }
 
+/**
+ * @description Authenticates a user with email and password, then starts a fresh session.
+ * @route POST /api/auth/login
+ * @access Public
+ */
 export const login = async (
   req: Request,
   res: Response,
@@ -124,6 +134,11 @@ export const login = async (
   }
 }
 
+/**
+ * @description Revokes the active session and clears authentication cookies.
+ * @route POST /api/auth/logout
+ * @access Public
+ */
 export const logout = async (
   req: Request,
   res: Response,
@@ -146,6 +161,11 @@ export const logout = async (
   }
 };
 
+/**
+ * @description Rotates the refresh token and issues updated authentication cookies.
+ * @route POST /api/auth/refresh
+ * @access Public
+ */
 export const refresh = async (
   req: Request,
   res: Response,
@@ -176,6 +196,11 @@ export const refresh = async (
   }
 };
 
+/**
+ * @description Completes the user's onboarding profile and synchronizes it with Stream.
+ * @route POST /api/auth/onboarding
+ * @access Optional
+ */
 export const onboard = async (
   req: Request,
   res: Response,

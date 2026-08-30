@@ -4,9 +4,10 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { connectDB } from './lib/db';
 import { globalErrorHandler } from './middlewares/globalErorrHandler.middleware';
-import authRouter from './routes/auth.routes';
 import { redis } from './lib/redis';
+import authRouter from './routes/auth.routes';
 import userRouter from './routes/user.routes';
+import chatRouter from './routes/chat.routes';
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use(cors({
 
 app.use("/api/auth", authRouter);
 app.use("/api/users", userRouter);
+app.use("/api/chat", chatRouter);
 
 app.use(globalErrorHandler);
 

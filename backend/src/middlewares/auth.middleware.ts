@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import jwt, { TokenExpiredError } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { AppError } from "../utils/AppError";
 import { AccessTokenPayload } from "../service/token.service";
 import { redis } from "../lib/redis";
@@ -44,7 +44,7 @@ const verifyRequestAccessToken = async (
       jti: decoded.jti
     };
   } catch (error) {
-    if (error instanceof TokenExpiredError) {
+    if (error instanceof jwt.TokenExpiredError) {
       throw new AppError("Access token expired", 401);
     }
 
