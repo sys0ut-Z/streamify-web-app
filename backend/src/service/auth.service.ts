@@ -2,17 +2,18 @@ import { CookieOptions, Response } from "express";
 import { createSession } from "./session.service";
 import { createAccessToken } from "./token.service";
 
+const isProduction = process.env.NODE_ENV === "production";
 const accessCookieOptions: CookieOptions = {
   httpOnly: true, // prevent XSS attacks
-  secure: process.env.NODE_ENV === "production",
-  sameSite: "strict", // prevent CSRF
+  secure: isProduction,
+  sameSite: isProduction ? "strict" : "none", // prevent CSRF
   maxAge: 10 * 60 * 1000 // 10 mins
 };
 
 const refreshCookieOptions: CookieOptions = {
   httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
-  sameSite: "strict",
+  secure: isProduction,
+  sameSite: isProduction ? "strict" : "none",
   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
   path: "/auth"
 }
@@ -31,11 +32,7 @@ export const createAuthSession = async (
 
   res
     .cookie("accessToken", accessToken, accessCookieOptions)
-    .cookie(
-      "refreshToken",
-      session.refreshToken,
-      refreshCookieOptions
-    );
+    .cookie("refreshToken",session.refreshToken, refreshCookieOptions);
 
   return session;
 }

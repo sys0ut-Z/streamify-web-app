@@ -39,6 +39,7 @@ export async function createSession(userId: string){
       familyId,
       currentRt: refreshTokenHash,
       revoked: "false", // when logout, set to true
+      revokedAt: "",
       createdAt: now.toString(),
       expiresAt: expiry.toString()
     })

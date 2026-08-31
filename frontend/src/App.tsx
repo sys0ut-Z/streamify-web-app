@@ -6,6 +6,7 @@ import CallPage from "./pages/CallPage"
 import ChatPage from "./pages/ChatPage"
 import { Toaster } from "react-hot-toast"
 import LoginPage from "./pages/LoginPage"
+import ProtectedRoute from "./components/authRoutes/ProtectedRoute"
 
 function App() {
   return (
@@ -20,8 +21,16 @@ function App() {
         <Route path="/call" element={<CallPage />} />
         <Route path="/chat" element={<ChatPage />} />
         <Route path="/auth">
-          <Route path="signup" element={<SignupPage />} />
-          <Route path="login" element={<LoginPage />} />
+          <Route path="signup" element={
+            <ProtectedRoute>
+              <SignupPage />
+            </ProtectedRoute>
+          } />
+          <Route path="login" element={
+            <ProtectedRoute>
+              <LoginPage />
+            </ProtectedRoute>
+          } />
         </Route>
       </Routes>
     </>

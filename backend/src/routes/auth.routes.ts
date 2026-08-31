@@ -39,4 +39,11 @@ authRouter.post("/refresh", authController.refresh);
  */
 authRouter.post("/onboarding", optionalAuth, authController.onboard);
 
+/**
+ * @description Returns the authenticated user
+ * @route GET /api/auth/me
+ * @access Private
+ */
+authRouter.get("/me", authController.checkAuth);
+
 export default authRouter;

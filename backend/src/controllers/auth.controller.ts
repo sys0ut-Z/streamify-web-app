@@ -250,3 +250,18 @@ export const onboard = async (
     next(error);
   }
 }
+
+export const checkAuth = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const userId = req.auth?.userId;
+    const user = await UserModel.findById(userId);
+
+    return res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
+}
