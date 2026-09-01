@@ -2,3 +2,5 @@
 @plugin "daisyui" {
   themes: all;
 }
+
+@custom-variant dark (&:where([data-theme=night], [data-theme=night] *));

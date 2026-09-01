@@ -11,6 +11,22 @@ const ProtectedRoute = ({children}: {children: React.ReactNode}) => {
     // it retries 3 times coz server might be down, so it makes the request again
   });
 
+  if(isLoading){
+    return (
+      <div>
+        Authenticating...
+      </div>
+    )
+  }
+
+  if(error){
+    return (
+      <div>
+        Error checking auth : {error.message}
+      </div>
+    )
+  }
+
   if(user){
     return <Navigate to="/" />
   }
