@@ -4,9 +4,9 @@ import HomePage from "./pages/HomePage"
 import NotificationsPage from "./pages/NotificationsPage"
 import CallPage from "./pages/CallPage"
 import ChatPage from "./pages/ChatPage"
-import { Toaster } from "react-hot-toast"
 import LoginPage from "./pages/LoginPage"
 import ProtectedRoute from "./components/authRoutes/ProtectedRoute"
+import { Toaster } from "react-hot-toast"
 
 function App() {
   return (

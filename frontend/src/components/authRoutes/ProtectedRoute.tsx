@@ -5,12 +5,14 @@ import { Navigate } from 'react-router';
 
 const ProtectedRoute = ({children}: {children: React.ReactNode}) => {
   const {data:user, isLoading, error} = useQuery({
-    queryKey: ['auth'], 
+    queryKey: ['authUser'], 
     queryFn: checkAuth,
     retry: false // it will not retry after the request fails
     // it retries 3 times coz server might be down, so it makes the request again
   });
 
+  console.log(user);
+  
   if(isLoading){
     return (
       <div>

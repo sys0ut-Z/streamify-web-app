@@ -6,16 +6,16 @@ const isProduction = process.env.NODE_ENV === "production";
 const accessCookieOptions: CookieOptions = {
   httpOnly: true, // prevent XSS attacks
   secure: isProduction,
-  sameSite: isProduction ? "strict" : "none", // prevent CSRF
+  sameSite: isProduction ? "strict" : "lax", // prevent CSRF
   maxAge: 10 * 60 * 1000 // 10 mins
 };
 
 const refreshCookieOptions: CookieOptions = {
   httpOnly: true,
   secure: isProduction,
-  sameSite: isProduction ? "strict" : "none",
+  sameSite: isProduction ? "strict" : "lax",
   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-  path: "/auth"
+  path: "/api/auth"
 }
 
 export const createAuthSession = async (

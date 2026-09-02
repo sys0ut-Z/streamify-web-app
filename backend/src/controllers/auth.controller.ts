@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import UserModel from "../models/user.model";
+import UserModel, { User } from "../models/user.model";
 import { AppError } from "../utils/AppError";
 import { ApiResponse } from "../utils/ApiResponse";
 import { clearAuthCookies, createAuthSession, setAuthCookies } from "../service/auth.service";
@@ -23,29 +23,29 @@ export const signup = async (
     if(!fullName || !email || !password){
       throw new AppError("Please fill all the fields", 400);
     }
-
+    
     if(password.length < 6){
       throw new AppError("Password must be at least 6 characters", 400);
     }
-
+    
     const emailRegex = /^\S+@\S+\.\S+$/;
     if(!emailRegex.test(email)){
       throw new AppError("Please enter a valid email", 400);
     }
-
+    
     // check for existing user
     const existingUser = await UserModel.findOne({email});
-
+    
     if(existingUser){
       throw new AppError("User account already linked with this email, please login", 400);
     }
-
+    
     // random no from 1 to 100
     const randomNo = Math.floor(Math.random() * 100) + 1;
     const profileAvatar = `https://api.dicebear.com/10.x/adventurer-neutral/png?seed=user-${randomNo}`;
     /* 
-      "styles": ["adventurer", "adventurer-neutral", "avataaars", "lorelei", "pixel-art"]
-      "img-types" : ["png", "svg", "jpeg"]
+    "styles": ["adventurer", "adventurer-neutral", "avataaars", "lorelei", "pixel-art"]
+    "img-types" : ["png", "svg", "jpeg"]
     */
 
     const user = await UserModel.create({
@@ -61,23 +61,21 @@ export const signup = async (
       name: user.fullName,
       image: user.profilePic || ""
     })
-
+    
     // create both session and cookies(access token & refresh token)
     await createAuthSession(
       user._id.toString(),
       res
     );
-
+    
+    const userData: User = user.toObject();
+    const {password: _, ...safeUser} = userData; // ^ take password separately and put the rest of the properties into safeUser
+    
+    // * const user: User = value;      // TypeScript CHECKS compatibility
+    // * const user2 = value as User;   // TypeScript TRUSTS your assertion
+    
     res.status(201).json(
-      new ApiResponse({
-        _id: user._id,
-        fullName: user.fullName,
-        email: user.email,
-        profilePic: user.profilePic,
-        bio: user.bio,
-        nativeLanguage: user.nativeLanguage,
-        learningLanguage: user.learningLanguage
-      })
+      new ApiResponse(safeUser, "User account created successfully")
     );
   } catch (error) {
     next(error);
@@ -251,6 +249,11 @@ export const onboard = async (
   }
 }
 
+/**
+ * @description Retrieves the authenticated user's details.
+ * @route GET /api/auth/check-auth
+ * @access Private
+ */
 export const checkAuth = async (
   req: Request,
   res: Response,

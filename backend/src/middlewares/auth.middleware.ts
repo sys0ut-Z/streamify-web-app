@@ -8,11 +8,11 @@ const verifyRequestAccessToken = async (
   req: Request
 ): Promise<AuthPayload> => {
   const token = req.cookies.accessToken;
-
+  
   if (!token) {
     throw new AppError("Authentication required, please login", 401);
   }
-
+  
   try {
     const decoded = jwt.verify(
       token,
@@ -22,22 +22,22 @@ const verifyRequestAccessToken = async (
         audience: "my-client"
       }
     ) as AccessTokenPayload;
-
+    
     if (decoded.type !== "access") {
       throw new AppError("Invalid access token", 401);
     }
-
+    
     const sessionKey = `session:${decoded.sid}`;
     const session = await redis.hGetAll(sessionKey);
-
+    
     if (Object.keys(session).length === 0) {
       throw new AppError("Session no longer exists, please login", 401);
     }
-
+    
     if (session.revoked === "true") {
       throw new AppError("Session revoked, please login", 401);
     }
-
+    
     return {
       userId: decoded.sub,
       sessionId: decoded.sid,
@@ -77,5 +77,6 @@ export const optionalAuth = async (
     next();
   } catch (error) {
     console.error("Authorization required, please login", error);
+    next();
   }
 }

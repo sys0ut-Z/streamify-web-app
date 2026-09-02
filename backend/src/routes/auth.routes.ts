@@ -1,6 +1,6 @@
 import { Router } from "express";
 import * as authController from "../controllers/auth.controller";
-import { optionalAuth } from "../middlewares/auth.middleware";
+import { optionalAuth, requireAuth } from "../middlewares/auth.middleware";
 
 const authRouter = Router();
 
@@ -44,6 +44,6 @@ authRouter.post("/onboarding", optionalAuth, authController.onboard);
  * @route GET /api/auth/me
  * @access Private
  */
-authRouter.get("/me", authController.checkAuth);
+authRouter.get("/me", optionalAuth, authController.checkAuth);
 
 export default authRouter;
