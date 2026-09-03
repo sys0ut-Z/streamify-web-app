@@ -74,9 +74,7 @@ export const signup = async (
     // * const user: User = value;      // TypeScript CHECKS compatibility
     // * const user2 = value as User;   // TypeScript TRUSTS your assertion
     
-    res.status(201).json(
-      new ApiResponse(safeUser, "User account created successfully")
-    );
+    res.status(201).json(safeUser);
   } catch (error) {
     next(error);
   }
@@ -124,9 +122,7 @@ export const login = async (
     user.password = undefined as never;
 
     // show successful login message is you want, 
-    res.status(200).json(
-      new ApiResponse(user)
-    );
+    res.status(200).json(user);
   } catch (error) {
     next(error);
   }

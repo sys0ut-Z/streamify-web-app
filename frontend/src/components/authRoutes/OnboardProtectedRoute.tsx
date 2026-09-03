@@ -1,8 +1,8 @@
 import useAuth from '../../hooks/useAuth';
-import { Navigate, Outlet } from 'react-router';
 import PageLoader from '../loaders/PageLoader';
+import { Navigate, Outlet } from 'react-router';
 
-const ProtectedRoute = () => {
+const OnboardProtectedRoute = () => {
   const {user, isLoading} = useAuth();
 
   const isAuthenticated = Boolean(user); // '{}' will always be true if user is present
@@ -10,11 +10,11 @@ const ProtectedRoute = () => {
 
   if(isLoading) return <PageLoader />
 
-  if(!isOnboarded){
-    return <Navigate to={!isAuthenticated ? "/auth/login" : "/onboarding"} />;
-  }
+  if(!isAuthenticated) return <Navigate to={"/auth/login"} />
 
+  if(isOnboarded) return <Navigate to={"/"} />
+  
   return <Outlet />
 }
 
-export default ProtectedRoute
+export default OnboardProtectedRoute

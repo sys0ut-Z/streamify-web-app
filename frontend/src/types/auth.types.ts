@@ -8,5 +8,15 @@ export type User = {
   isOnboarded: boolean;
   nativeLanguage: string;
   learningLanguage: string;
+  location: string;
   friends?: string[];
 }
+
+export type OnboardRequest = {
+  fullName: string;
+  bio: string;
+  nativeLanguage: string;
+  learningLanguage: string;
+  location: string;
+  profilePic: File | null;
+};

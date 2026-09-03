@@ -1,12 +1,16 @@
 import { Route, Routes } from "react-router"
+import { Toaster } from "react-hot-toast"
 import SignupPage from "./pages/SignupPage"
 import HomePage from "./pages/HomePage"
 import NotificationsPage from "./pages/NotificationsPage"
 import CallPage from "./pages/CallPage"
 import ChatPage from "./pages/ChatPage"
 import LoginPage from "./pages/LoginPage"
+import GuestRoute from "./components/authRoutes/GuestRoute"
 import ProtectedRoute from "./components/authRoutes/ProtectedRoute"
-import { Toaster } from "react-hot-toast"
+import OnboardProtectedRoute from "./components/authRoutes/OnboardProtectedRoute"
+import OnboardingPage from "./pages/OnboardingPage"
+import AuthLayout from "./layout/AuthLayout"
 
 function App() {
   return (
@@ -16,21 +20,20 @@ function App() {
         reverseOrder={false}
       />
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<ProtectedRoute />} >
+          <Route index element={<HomePage />} />
+        </Route>
+        <Route path="/onboarding" element={<OnboardProtectedRoute />} >
+          <Route index element={<OnboardingPage />} />
+        </Route>
         <Route path="/notifications" element={<NotificationsPage />} />
         <Route path="/call" element={<CallPage />} />
         <Route path="/chat" element={<ChatPage />} />
-        <Route path="/auth">
-          <Route path="signup" element={
-            <ProtectedRoute>
-              <SignupPage />
-            </ProtectedRoute>
-          } />
-          <Route path="login" element={
-            <ProtectedRoute>
-              <LoginPage />
-            </ProtectedRoute>
-          } />
+        <Route path="/auth" element={<GuestRoute />}>
+          <Route element={<AuthLayout />}>
+            <Route path="signup" element={<SignupPage />} />
+            <Route path="login" element={<LoginPage />} />
+          </Route>
         </Route>
       </Routes>
     </>

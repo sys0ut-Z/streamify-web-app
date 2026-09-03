@@ -15,7 +15,7 @@ const refreshCookieOptions: CookieOptions = {
   secure: isProduction,
   sameSite: isProduction ? "strict" : "lax",
   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-  path: "/api/auth"
+  path: "/api/auth/refresh"
 }
 
 export const createAuthSession = async (
