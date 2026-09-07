@@ -76,7 +76,7 @@ export const optionalAuth = async (
 
     next();
   } catch (error) {
-    console.error("Authorization required, please login", error);
+    // console.error("Authorization error : ", error);
     next();
   }
 }

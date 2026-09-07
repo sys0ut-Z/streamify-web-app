@@ -203,10 +203,25 @@ export const onboard = async (
   try {
     const userId = req.auth?.userId;
 
-    const {fullName, bio, nativeLanguage, learningLanguage, location} = req.body as OnboardRequest;
+    const {fullName, bio, nativeLanguage, learningLanguage, location, profilePic} = req.body as OnboardRequest;
 
     if(!fullName || !bio || !nativeLanguage || !learningLanguage || !location){
-      throw new AppError("Please fill all the fields", 400);
+      throw new AppError(
+        `
+          Please fill all the fields, \n
+          Missing fields : ${[
+            !fullName && "fullName",
+            !bio && "bio",
+            !nativeLanguage && "nativeLanguage",
+            !learningLanguage && "learningLanguage",
+            !location && "location"
+          ]}
+        `
+        , 400);
+    }
+
+    if(!profilePic){
+      throw new AppError("Please select a profile avatar", 400);
     }
 
     /* 
@@ -220,14 +235,22 @@ export const onboard = async (
       ].filter(Boolean)
     */
 
-    const updatedUser = await UserModel.findOneAndUpdate(
-      {_id: userId}, 
-      {$set: {fullName, bio, nativeLanguage, learningLanguage, location, isOnboarded: true}}, 
+    const updatedUser = await UserModel.findByIdAndUpdate(
+      userId, 
+      {$set: {
+        fullName, 
+        bio, 
+        nativeLanguage, 
+        learningLanguage, 
+        location, 
+        profilePic,
+        isOnboarded: true
+      }}, 
       {new: true}
     );
 
     if(!updatedUser){
-      throw new AppError("Oops! Something went wrong while onboarding, please try again");
+      throw new AppError("Oops! Something went wrong while onboarding your account, please try again");
     }
 
     // update user in stream too

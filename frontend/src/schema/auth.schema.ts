@@ -40,6 +40,7 @@ export const onboardUserSchema = z.object({
 
   bio: z
     .string()
+    .min(10, 'Bio must be at least 10 characters')
     .max(300, 'Bio must be less than 300 characters'),
 
   nativeLanguage: z
@@ -56,8 +57,8 @@ export const onboardUserSchema = z.object({
     .max(100, 'Location must be less than 100 characters'),
 
   profilePic: z
-    .instanceof(File)
-    .nullable()
+    .string()
+    .or(z.literal(''))
 });
 
 export type OnboardUser = z.infer<typeof onboardUserSchema>;

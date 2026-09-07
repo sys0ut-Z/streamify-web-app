@@ -15,4 +15,5 @@ export type OnboardRequest = {
   nativeLanguage: string;
   learningLanguage: string;
   location: string;
+  profilePic: string;
 }

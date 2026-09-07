@@ -12,9 +12,7 @@ const LoginPage = () => {
   const { 
     register, 
     handleSubmit,
-    formState,
-    getValues,
-    watch
+    formState: {errors},
   } = useForm<LoginRequest>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -68,6 +66,9 @@ const LoginPage = () => {
                   placeholder='janedoe@gmail.com'
                   {...register('email')}
                 />
+                {errors.email && (
+                  <p className="text-error text-xs sm:text-sm">{errors.email.message}</p>
+                )}
               </div>
 
               {/* Password */}
@@ -78,9 +79,12 @@ const LoginPage = () => {
                   placeholder='********'
                   {...register('password')}
                 />
+                {errors.password && (
+                  <p className="text-error text-xs sm:text-sm">{errors.password.message}</p>
+                )}
               </div>
 
-              <button className="btn btn-primary w-full" type="submit">
+              <button className="btn btn-primary w-full" type="submit" disabled={isPending}>
                 {isPending ? (
                   <>
                     <span className="loading loading-spinner loading-xs"></span>

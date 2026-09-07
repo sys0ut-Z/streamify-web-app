@@ -37,7 +37,7 @@ authRouter.post("/refresh", authController.refresh);
  * @route POST /api/auth/onboarding
  * @access Optional
  */
-authRouter.post("/onboarding", optionalAuth, authController.onboard);
+authRouter.post("/onboard", optionalAuth, authController.onboard);
 
 /**
  * @description Returns the authenticated user
