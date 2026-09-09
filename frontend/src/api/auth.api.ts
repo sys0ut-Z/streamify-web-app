@@ -34,6 +34,14 @@ export const login = async (request: LoginRequest) => {
   }
 }
 
+export const logout = async () => {
+  try {
+    await axiosInstance.post<void>("/auth/logout");
+  } catch (error) {
+    handleApiError(error);
+  }
+}
+
 export const onboard = async (userData: OnboardRequest) => {
   try {
     await axiosInstance.post<void>('/auth/onboard', userData);

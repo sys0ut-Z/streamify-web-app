@@ -1,12 +1,11 @@
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { loginSchema, type LoginRequest } from '../schema/auth.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { login } from '../api/auth.api';
 import { Label } from '../util/Label';
 import { Input } from '../util/Input';
 import { ShipWheelIcon } from 'lucide-react';
 import { Link } from 'react-router';
+import useLogin from '../hooks/useLogin';
 
 const LoginPage = () => {
   const { 
@@ -21,17 +20,7 @@ const LoginPage = () => {
     }
   });
 
-  const queryClient = useQueryClient();
-
-  const {mutate: loginUser, isPending, error} = useMutation({
-    mutationFn: login,
-    onSuccess: () => queryClient.invalidateQueries({queryKey: ['authUser']}),
-    /* 
-      - You perform signup/login, and the server-side auth state changes
-      - But TanStack Query doesn't automatically know that ["authUser"] is now potentially stale
-      - If that query is currently being used by a component, TanStack Query will generally REFETCH it in the background
-    */
-  });
+  const {loginUser, isPending, error} = useLogin();
 
   const handleLogin: SubmitHandler<LoginRequest> = (data) => {
     loginUser(data);

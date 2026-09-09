@@ -7,7 +7,7 @@ export type SignupRequest = {
 export type LoginRequest = {
   email: string;
   password: string;
-};
+}
 
 export type OnboardRequest = {
   fullName: string;

@@ -35,7 +35,7 @@ const verifyRequestAccessToken = async (
     }
     
     if (session.revoked === "true") {
-      throw new AppError("Session revoked, please login", 401);
+      throw new AppError("Session expired, please login", 401);
     }
     
     return {
