@@ -1,5 +1,5 @@
 import useAuth from '../../hooks/useAuth'
-import { Link, useLocation } from 'react-router';';
+import { Link, useLocation } from 'react-router';
 import { BellIcon, LogOutIcon, ShipWheelIcon } from 'lucide-react';
 import ThemeSelector from '../navbar/ThemeSelector';
 import useLogout from '../../hooks/useLogout';
@@ -11,7 +11,7 @@ const Navbar = () => {
   const isChatPage = location.pathname.split('/')[1] === 'chat';
 
   const {logoutUser, isPending, error} = useLogout();
-  
+
   if(isPending) return <PageLoader />
   
   return (
