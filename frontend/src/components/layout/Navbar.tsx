@@ -20,7 +20,7 @@ const Navbar = () => {
         <div className='flex items-center justify-end w-full'>
           {/* Logo, only visible on chat page */}
           {isChatPage && (
-            <div className="pl-5">
+            <div className="pl-3.5 lg:pl-5">
               <Link to="/" className="flex items-center gap-2.5">
                 <ShipWheelIcon className="size-9 text-primary" />
                 <span className="text-2xl lg:text-3xl font-bold font-mono bg-clip-text text-transparent bg-linear-to-r from-primary to-secondary tracking-wider">

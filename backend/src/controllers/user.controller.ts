@@ -41,7 +41,9 @@ export const getRecommendedUsers = async (
       }
     ]);
 
-    return res.status(200).json(recommendedUsers);
+    return res.status(200).json(
+      new ApiResponse(recommendedUsers)
+    );
   } catch (error) {
     next(error);
   }
@@ -66,7 +68,9 @@ export const getFriends = async (
     
     const friends = user?.friends ?? [];
 
-    return res.status(200).json(friends);
+    return res.status(200).json(
+      new ApiResponse(friends)
+    );
   } catch (error) {
     next(error);
   }

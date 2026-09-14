@@ -59,7 +59,7 @@ const OnboardingPage = () => {
   if(isPending) return <PageLoader />
 
   return (
-    <div className='min-h-screen bg-base-100 flex items-center justify-center p-4' data-theme="forest">
+    <div className='min-h-screen bg-base-100 flex items-center justify-center p-4'>
       <div className='card bg-base-200 w-full max-w-3xl shadow-xl'>
         <div className='card-body p-5 sm:p-7'>
           <h1 className='text-xl sm:text-2xl md:text-3xl fond-bold text-center mb-4.5'>
