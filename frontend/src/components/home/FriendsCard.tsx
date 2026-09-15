@@ -13,7 +13,7 @@ const FriendCard = ({friend}: FriendCardProps) => {
         {/* User Info */}
         <div className="flex items-center gap-2 lg:gap-3 mb-3">
           <div className="avatar size-11">
-            <img src={friend.profilePic} alt={friend.fullName} />
+            <img src={friend.profilePic} alt={friend.fullName} className="rounded-full" />
           </div>
           <h3 className="font-semibold truncate">{friend.fullName}</h3>
         </div>

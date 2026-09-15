@@ -16,6 +16,7 @@ import MainLayout from "./layout/MainLayout"
 
 function App() {
   const {theme} = useThemeStore();
+
   return (
     <div data-theme={theme}>
       <Toaster 

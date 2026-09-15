@@ -263,7 +263,7 @@ export const getOutgoingFriendRequests = async (
 
     const outgoingRequests = await FriendRequestModel.find({sender: myId, status: "pending"})
       .populate("receiver", "fullName profilePic nativeLanguage learningLanguage");
-
+    
     return res.status(200).json(
       new ApiResponse({outgoingRequests})
     );

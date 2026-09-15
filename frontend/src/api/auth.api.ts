@@ -6,8 +6,8 @@ import { handleApiError } from "../util/handleApiError";
 
 export const checkAuth = async () => {
   try {
-    const res = await axiosInstance.get<User>("/auth/me");
-    return res.data;
+    const res = await axiosInstance.get<ApiResponse<User>>("/auth/me");
+    return res.data.data;
   } catch (error) {
     handleApiError(error);
   }
@@ -33,7 +33,7 @@ export const login = async (request: LoginRequest) => {
 
 export const logout = async () => {
   try {
-    await axiosInstance.post<void>("/auth/logout");
+    await axiosInstance.post<ApiResponse<null>>("/auth/logout");
   } catch (error) {
     handleApiError(error);
   }

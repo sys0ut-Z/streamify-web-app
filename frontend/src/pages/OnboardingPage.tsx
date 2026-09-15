@@ -2,8 +2,7 @@ import { useForm, useWatch, type SubmitHandler } from 'react-hook-form';
 import useAuth from '../hooks/useAuth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { onboardUserSchema, type OnboardUser } from '../schema/auth.schema';
-import PageLoader from '../components/loaders/PageLoader';
-import { QueryClient, useMutation } from '@tanstack/react-query';
+import { QueryClient, useMutation, useQueryClient } from '@tanstack/react-query';
 import { onboard } from '../api/auth.api';
 import toast, { LoaderIcon } from 'react-hot-toast';
 import { CameraIcon, MapPinIcon, RotateCcw, ShipWheelIcon, ShuffleIcon } from 'lucide-react';
@@ -32,12 +31,12 @@ const OnboardingPage = () => {
     }
   });
 
-  const queryClient = new QueryClient();
+  const queryClient = useQueryClient();
   const {mutate: onboardUser, isPending, error} = useMutation({
     mutationFn: onboard,
     onSuccess: () => {
-      toast.success('Profile onboarded successfully');
       queryClient.invalidateQueries({queryKey: ['authUser']});
+      toast.success('Profile onboarded successfully');
     }
   });
 
@@ -56,7 +55,7 @@ const OnboardingPage = () => {
     onboardUser(data);
   }
 
-  if(isPending) return <PageLoader />
+  // if(isPending) return <PageLoader />
 
   return (
     <div className='min-h-screen bg-base-100 flex items-center justify-center p-4'>

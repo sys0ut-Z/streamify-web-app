@@ -48,9 +48,9 @@ export const sendFriendRequest = async (recipientId: string) => {
   }
 }
 
-export const acceptFriendRequest = async (recipientId: string) => {
+export const acceptFriendRequest = async (requestId: string) => {
   try {
-    const res = await axiosInstance.put<ApiResponse<null>>(`/users/friend-request/accept/${recipientId}`);
+    const res = await axiosInstance.put<ApiResponse<null>>(`/users/friend-request/accept/${requestId}`);
     return res.data.message;
   } catch (error) {
     handleApiError(error);

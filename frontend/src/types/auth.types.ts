@@ -1,4 +1,6 @@
-export type User = {
+import type { WithTimestamps } from "./index.types";
+
+export type User = WithTimestamps<{
   _id: string;
   fullName: string;
   email: string;
@@ -9,7 +11,7 @@ export type User = {
   learningLanguage: string;
   location: string;
   friends?: string[];
-}
+}>;
 
 export type OnboardRequest = {
   fullName: string;
