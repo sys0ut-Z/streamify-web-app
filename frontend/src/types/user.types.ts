@@ -6,14 +6,15 @@ export type FriendRequestUser = {
   learningLanguage: string;
 }
 
-export type IncomingFriendRequest = FriendRequestUser & {
+export type IncomingFriendRequest = {
+  sender: FriendRequestUser;
+  receiver: string; // just _id
   status: "pending";
 };
 
 export type AcceptedFriendRequest = {
-  _id: string;
-  fullName: string;
-  profilePic: string;
+  sender: Pick<FriendRequestUser, "_id" | "fullName" | "profilePic">;
+  receiver: string;
   status: "accepted";
 };
 
@@ -23,5 +24,9 @@ export type FriendRequestsResponse = {
 };
 
 export type OutgoingFriendRequestsResponse = {
-  outgoingRequests: FriendRequestUser[];
+  outgoingRequests: {
+    sender: string;
+    receiver: FriendRequestUser;
+    status: "pending"
+  }[];
 };

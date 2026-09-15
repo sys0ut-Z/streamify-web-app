@@ -1,4 +1,4 @@
-import useAuth from '../../hooks/useAuth'
+import useAuth from '../../hooks/useAuth';
 import { Link, useLocation } from 'react-router';
 import { BellIcon, LogOutIcon, ShipWheelIcon } from 'lucide-react';
 import ThemeSelector from '../navbar/ThemeSelector';

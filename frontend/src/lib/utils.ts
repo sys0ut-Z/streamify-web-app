@@ -1,0 +1,1 @@
+export const capitalize = (language: string) => language.charAt(0).toUpperCase() + language.slice(1);

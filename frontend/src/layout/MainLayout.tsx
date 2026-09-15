@@ -1,5 +1,5 @@
-import Sidebar from '../components/layout/Sidebar'
-import Navbar from '../components/layout/Navbar';
+import Sidebar from '../components/common/Sidebar'
+import Navbar from '../components/common/Navbar'
 import { Outlet } from 'react-router';
 
 interface MainLayoutProps {

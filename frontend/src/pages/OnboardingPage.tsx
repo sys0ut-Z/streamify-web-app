@@ -86,13 +86,13 @@ const OnboardingPage = () => {
               
               {/* Random Avatar button */}
               <div className='flex items-center gap-2'>
-                <button type="button" className='btn btn-accent rounded-md'
+                <button type="button" className='btn btn-accent'
                   onClick={generateRandomAvatar}
                 >
                   <ShuffleIcon className='size-3.5 mr-2'/>
                   Generate Random Avatar
                 </button>
-                <button type="button" className='btn btn-accent rounded-md'
+                <button type="button" className='btn btn-accent'
                   onClick={() => setValue('profilePic', user?.profilePic || '', {shouldDirty: true})}
                 >
                   <RotateCcw className='size-3.5 mr-2'/>
@@ -120,7 +120,7 @@ const OnboardingPage = () => {
             <div className="form-control">
               <Label label='Bio'/>
               <textarea
-                className="textarea textarea-bordered h-24 w-full rounded-lg"
+                className="textarea textarea-bordered h-24 w-full"
                 placeholder="Tell others about yourself and your language learning goals"
                 {...register('bio')}
               />
@@ -167,7 +167,7 @@ const OnboardingPage = () => {
             </div>
 
             {/* Submit button */}
-            <button className='btn btn-primary w-full rounded-lg' type="submit" disabled={isPending}>
+            <button className='btn btn-primary w-full' type="submit" disabled={isPending}>
               {isPending ? (
                 <>
                   <LoaderIcon className='animate-spin size-5 mr-2' />
@@ -192,7 +192,7 @@ export default OnboardingPage
 type LanguageProps = React.ComponentPropsWithRef<'select'> & {langType: string}
 const LanguageDropdown = ({langType: lt, ...props}: LanguageProps) => (
   <select
-    className='select select-bordered w-full rounded-lg'
+    className='select select-bordered w-full'
     {...props}
   >
     <option value="">Select your {lt} language</option>

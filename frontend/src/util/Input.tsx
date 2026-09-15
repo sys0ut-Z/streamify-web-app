@@ -4,7 +4,7 @@ export type InputProps = React.ComponentPropsWithRef<'input'>;
 export const Input = (props: InputProps) => (
   <input
     {...props}
-    className='input input-bordered w-full rounded-lg'
+    className='input input-bordered w-full'
     // required
   />
 )

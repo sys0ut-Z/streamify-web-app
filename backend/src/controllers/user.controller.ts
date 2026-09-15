@@ -27,7 +27,7 @@ export const getRecommendedUsers = async (
         $match: {
           _id: {
             $nin: [
-              userId, // exclude current user
+              new Types.ObjectId(userId), // exclude current user
               ...(user?.friends ?? []) // exclude current user's friends
             ]
           },
